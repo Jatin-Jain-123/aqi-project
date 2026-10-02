@@ -11,7 +11,7 @@ Air quality alert for New Delhi (AQI 214, Poor)
 🔴 AQI is 214 (your limit: 200)
 🔴 PM2.5 is 96.3 µg/m³ (your limit: 90)
 ```
-
+![Telegram Alert on my Phone](images/image.png)
 ## How it works
 
 - Air quality data comes from the free [Open-Meteo Air Quality API](https://open-meteo.com/en/docs/air-quality-api)

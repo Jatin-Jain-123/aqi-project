@@ -1,0 +1,9 @@
+.env
+state.json
+__pycache__/
+.pytest_cache/
+.venv/
+venv/
+
+# my own notes
+EXPLAIN_aqi_project.md

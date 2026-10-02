@@ -1,0 +1,13 @@
+[location]
+name = "New Delhi"
+latitude = 28.61
+longitude = 77.21
+
+# Send an alert when a value goes at or above these limits.
+# Remove a line to stop watching that pollutant.
+[thresholds]
+aqi = 200               # Indian AQI, 201+ is "Poor"
+pm2_5 = 90              # µg/m³, current hour
+pm10 = 250              # µg/m³, current hour
+nitrogen_dioxide = 180  # µg/m³
+ozone = 180             # µg/m³

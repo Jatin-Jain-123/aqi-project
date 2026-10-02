@@ -24,30 +24,85 @@ Air quality alert for New Delhi (AQI 214, Poor)
   of the limit, so a value that hovers around the limit doesn't spam you.
 - Messages go out through the Telegram Bot API with plain `requests`.
 
-## Setup
+## Run it on your own device
+
+You need **Python 3.11 or newer**, **Git** and a **Telegram** account. It works
+on Windows, macOS and Linux, including a Raspberry Pi.
+
+### 1. Download and install
+
+```bash
+git clone https://github.com/Jatin-Jain-123/aqi-project.git
+cd aqi-project
+python -m venv .venv
+```
+
+Activate the virtual environment:
+
+```bash
+# Windows (PowerShell)
+.venv\Scripts\Activate.ps1
+# macOS / Linux
+source .venv/bin/activate
+```
+
+Then install the dependencies:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-1. On Telegram, talk to [@BotFather](https://t.me/BotFather), send `/newbot`
-   and copy the token it gives you.
-2. Copy `.env.example` to `.env` and paste the token in.
-3. Send any message to your new bot, then run
-   `python main.py --find-chat-id` and put that id in `.env` too.
-4. Set your location and limits in `config.toml`.
+### 2. Create your Telegram bot
 
-## Usage
+1. In Telegram, open [@BotFather](https://t.me/BotFather), send `/newbot`
+   and follow the prompts. You'll get a token like `8123456789:AAH...`.
+2. Copy `.env.example` to a new file called `.env` and paste the token after
+   `TELEGRAM_BOT_TOKEN=`.
+3. Open your new bot (`https://t.me/<your_bot_username>`) and send it any
+   message. It won't reply, and that's expected; a bot can only message you
+   after you've messaged it.
+4. Get your chat id:
+
+   ```bash
+   python main.py --find-chat-id
+   ```
+
+   It prints something like `{123456789: 'YourName'}`. Put that number after
+   `TELEGRAM_CHAT_ID=` in `.env`.
+
+Keep `.env` private. It's already in `.gitignore`.
+
+### 3. Set your location and limits
+
+Edit `config.toml`:
+
+- **latitude / longitude**: right-click your area in Google Maps and click
+  the coordinates to copy them.
+- **thresholds**: the values that trigger an alert. Delete a line to stop
+  watching that pollutant.
+
+### 4. Try it
 
 ```bash
-python main.py --report --dry-run   # see current readings, send nothing
+python main.py --report --dry-run   # print current readings, send nothing
 python main.py --report             # send current readings to Telegram
-python main.py                      # check once and alert if needed
-python main.py --watch 30           # keep checking every 30 minutes
+python main.py                      # check once and alert if a limit is crossed
 ```
 
-I run `python main.py` every 30 minutes with Windows Task Scheduler. `cron`
-works the same way on Linux.
+### 5. Keep it running
+
+Pick one:
+
+- **Simplest:** leave a terminal open with `python main.py --watch 30`
+  (checks every 30 minutes; stop with Ctrl+C).
+- **Windows Task Scheduler:** create a task that repeats every 30 minutes with
+  - Program: `<project folder>\.venv\Scripts\python.exe`
+  - Arguments: `main.py`
+  - Start in: `<project folder>`
+- **macOS / Linux / Raspberry Pi (cron):** run `crontab -e` and add
+  ```
+  */30 * * * * cd /path/to/aqi-project && .venv/bin/python main.py
+  ```
 
 ## Tests
 

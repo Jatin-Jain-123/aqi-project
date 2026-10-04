@@ -1,5 +1,10 @@
 # aqi-project
 
+> 🤖 **Built with AI:** this project is part of a series of projects I've
+> developed using [Claude Code](https://claude.com/claude-code), Anthropic's
+> AI coding agent. The code, tests and docs were written with Claude Code
+> under my direction, and I reviewed, ran and tested it on my own setup.
+
 Every winter Delhi's air gets bad, and I usually find out after I'm already
 outside. This script checks the air quality where I live and sends me a
 Telegram message when the AQI or a specific pollutant crosses a limit I set.
